@@ -136,7 +136,7 @@ describe('shuffleDeck', function() {
   });
 
   it('for large N, should not have any bias from a uniform distribution', function () {
-    // We perform this test on an array of 1000 integers.
+    // Perform this test on an array of 1000 integers.
     // (Your function must shuffle an arbitrary array to pass this test.)
     // If your algorithm times out here, it is not running in linear time.
     var orderedArray = function () {
