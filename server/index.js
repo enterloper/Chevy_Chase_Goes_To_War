@@ -1,10 +1,12 @@
 'use strict';
+/******** DEPENDENCIES ********/
 let express     = require('express');
 let app         = express();
 let bodyParser  = require('body-parser');
 let morgan      = require('morgan');
 let path        = require('path');
-
+/******** ROUTERS ********/
+let TableRouter = require('./routes/tableRouter.js')
 app.set('case sensitive routing', false);
 
 //middleware
@@ -15,12 +17,13 @@ app.use(morgan());
 //STATIC FILES SO TASTY!
 app.use( express.static(__dirname + '/../public') );
 
+//ROUTERS
+app.use("/table", TableRouter);
+
 app.get('/', function(req, res) {
   res.send('hey, yodahead, your server works');
 });
-app.get('/warboard', function(req, res) {
-  res.send('Oh, lookie here you gotta nother page!')
-});
+
 //FIND A PORT O' CALL YA SAILOR
 app.set( 'port', (process.env.PORT || 3000) );
 app.listen(app.get('port'), function() {
