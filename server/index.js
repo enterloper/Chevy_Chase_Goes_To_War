@@ -6,8 +6,9 @@ let bodyParser    = require('body-parser');
 let morgan        = require('morgan');
 let path          = require('path');
 /******** ROUTERS ********/
-let TableRouter   = require('./routes/tableRouter.js');
 let apiDeckRouter = require('./routes/apiDeckRouter.js');
+let DrawOneRouter = require('./routes/drawOneRouter.js');
+let WarRouter     = require('./routes/warRouter.js');
 
 
 //middleware
@@ -20,8 +21,9 @@ app.use(morgan());
 app.use( express.static(__dirname + '/../public') );
 
 //ROUTERS
-app.use("/table", TableRouter);
 app.use("/api", apiDeckRouter);
+app.use("/war", WarRouter);
+app.use("/draw_one", DrawOneRouter);
 app.get('/', function(req, res) {
   res.send('hey, yodahead, your server works');
 });
