@@ -18,14 +18,16 @@ app.use(bodyParser.urlencoded({ extended:true }));
 app.use(morgan());
 
 //STATIC FILES SO TASTY!
-app.use( express.static(__dirname + '/../public') );
+app.use( express.static(__dirname + '/../client') );
 
 //ROUTERS
 app.use("/api", apiDeckRouter);
 app.use("/war", WarRouter);
 app.use("/draw_one", DrawOneRouter);
+
+//HOME PAGE ROUTING
 app.get('/', function(req, res) {
-  res.send('hey, yodahead, your server works');
+  res.send(index.html);
 });
 
 //FIND A PORT O' CALL YA SAILOR
