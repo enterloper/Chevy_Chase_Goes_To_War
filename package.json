@@ -1,0 +1,27 @@
+{
+  "name": "chevy_chase_goes_to_war",
+  "version": "1.0.0",
+  "description": "A code challenge that I wanted to have fun with. ",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon server/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/richardjboothe/Chevy_Chase_Goes_To_War.git"
+  },
+  "author": "Richard Boothe",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/richardjboothe/Chevy_Chase_Goes_To_War/issues"
+  },
+  "homepage": "https://github.com/richardjboothe/Chevy_Chase_Goes_To_War#readme",
+  "dependencies": {
+    "bluebird": "^3.4.6",
+    "body-parser": "^1.15.2",
+    "express": "^4.14.0",
+    "morgan": "^1.7.0",
+    "path": "^0.12.7"
+  }
+}
