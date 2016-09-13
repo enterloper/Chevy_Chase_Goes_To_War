@@ -1,6 +1,7 @@
 {
   "name": "chevy_chase_goes_to_war",
   "version": "1.0.0",
+  "private": true,
   "description": "A code challenge that I wanted to have fun with. ",
   "main": "index.js",
   "scripts": {
@@ -13,10 +14,13 @@
   },
   "author": "Richard Boothe",
   "license": "ISC",
+  "engines": {
+    "node": "6.2.1"
+  },
   "bugs": {
     "url": "https://github.com/richardjboothe/Chevy_Chase_Goes_To_War/issues"
   },
-  "homepage": "https://github.com/richardjboothe/Chevy_Chase_Goes_To_War#readme",
+  "homepage": "http://warwithchevy.herokuapp.com/",
   "dependencies": {
     "bluebird": "^3.4.6",
     "body-parser": "^1.15.2",
