@@ -4,22 +4,8 @@ let expect      = chai.expect;
 let should      = chai.should();
 let assert      = chai.assert;
 let NewDeck     = require('./../server/cardDeckClass.js');
-/*after running standard.drawOne() 3 times;
-(function (a,b,c) {
-  for(let i = 0, max = standard.deck.length, deck=standard.deck; i<max; i++){
-    if(deck[i]===a||deck[i]===b||deck[i]===c) {
-      return "RU ROOOOO";
-    }
-  }return 'All Clear!';
-}("9♥","2♣","4♥"));
-*/
-var standard = new NewDeck();
 
-//IMPLIMENT!!!! BOOOOOOOI!
-// .to.deep.equal({ bar: 'baz' });
-// expect({ foo: { bar: { baz: 'quux' } } })
-//   .to.have.deep.property('foo.bar.baz', 'quux');
-//USE BEFOREEACH!before(), after(), beforeEach(), and afterEach()
+var standard = new NewDeck();
 
 describe('Completed deck', () => {
   it('should have a 52 cards in total', () => {
@@ -27,22 +13,22 @@ describe('Completed deck', () => {
   });
 });
 
-describe('shuffleDeck', function() {
-  it('should exist', function(){
+describe('shuffleDeck behavior', () => {
+  it('should exist', () => {
     should.exist(standard.shuffleDeck);
   });
 
-  it('should be a function', function() {
+  it('should be a function', () => {
     standard.shuffleDeck.should.be.a.Function;
   });
 
-  it('should return an array', function() {
+  it('should return an array', () => {
     var result = standard.shuffleDeck(standard.deck);
     should.exist(result);
     result.should.be.an.instanceof(Array);
   });
 
-  it('should return an array with every card in the deck', function(){
+  it('should return an array with every card in the deck', () => {
     var input = standard.orderDeck();
     var control = standard.orderDeck();
     var result = standard.shuffleDeck(input);
@@ -56,7 +42,7 @@ describe('shuffleDeck', function() {
     }
   });
 
-  it('should not return the deck in input order', function(){
+  it('should not return the deck in input order', () => {
     var input = standard.deck;
     var control = standard.orderDeck();
     var result = standard.shuffleDeck(input);
@@ -64,7 +50,7 @@ describe('shuffleDeck', function() {
     result.should.not.eql(control);
   });
 
-  it('should not return the deck in the same order twice', function(){
+  it('should not return the deck in the same order twice', () => {
     var input1  = standard.orderDeck();
     var input2  = standard.orderDeck();
     var result1 = standard.shuffleDeck(input1);
@@ -74,7 +60,7 @@ describe('shuffleDeck', function() {
     result1.should.not.eql(result2);
   });
 
-  it('should not have any bias from a uniform distribution', function () {
+  it('should not have any bias from a uniform distribution', () => {
     var deck = standard.orderDeck();
     // Keep a table of how often each card appears in each deck position...
     var cardPositionCounts = {};
@@ -118,7 +104,7 @@ describe('shuffleDeck', function() {
     // Perform this test on an array of 1000 integers.
     // Function must shuffle an arbitrary array to pass this test.
     // Must run in Linear Time
-    var orderedArray = function () {
+    var orderedArray = () => {
       var output = [];
       for (var i = 0; i < 1000; i++) {
         output.push(i);
@@ -163,3 +149,68 @@ describe('shuffleDeck', function() {
     chi2.should.be.within(target - margin, target + margin);
   });
 });
+
+describe('drawOne behavior', function () {
+  console.log('155--------------->', standard.deck.length);
+
+  beforeEach(function() {
+    standard =  new NewDeck;
+    standard.deck = standard.orderDeck();
+  });
+
+  it('should exist', function() {
+    should.exist(standard.drawOne);
+  });
+
+  it('should be a function', function() {
+    standard.drawOne.should.be.a.Function;
+  });
+  
+  it('should return a string', function() {
+    var result = standard.drawOne(standard.deck);
+    should.exist(result);
+    result.should.be.a.String;
+  });
+
+  it('should decrease the deck by a value of one', function() {
+    var initial = standard.deck.length;
+    standard.drawOne();
+    expect( standard.deck ).to.have.length(initial-1);
+  });
+
+  it('should draw the last card in the deck', function() {
+    var candidate = standard.deck[standard.deck.length-1];
+    var drawn = standard.drawOne();
+    expect(candidate).to.equal(drawn);
+  });
+
+  it('should draw one through the entirety of the deck', function() {
+    var fifty_third;
+    for(let i=0, max=standard.deck.length; i<=max; i++){
+      if(i=max) {
+        fifty_third = standard.deck[i];
+      }
+      standard.drawOne();
+    }
+    expect(fifty_third).to.be.undefined;
+  });
+
+  it('should draw one through the entirety of the deck', function() {
+    var last_card;
+    var temp;
+    console.log('198--------------->', standard.deck.length);
+    
+    for(let i=standard.deck.length-1; i>=0; i--){
+      console.log('------------->i',standard.deck[i]);
+      temp = standard.drawOne();
+      console.log('------------->temp',temp);
+      if(i === 0) {
+        last_card = temp;
+      }
+    }
+    console.log('206--------------->', last_card);
+
+    expect(last_card).to.not.be.undefined;
+  });
+});
+

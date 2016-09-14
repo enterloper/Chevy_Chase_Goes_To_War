@@ -14,7 +14,6 @@
   //create a takePile function player card is higher than dealer (r.forEach(x => {playerCards.unshift(x)});
   //create a war function (both cards drawn are equal, draw one card face down, and one card face up, winner takes pile.)
 
-
 /********* Class Inheritance Style *********/
 function Deck(cardType = 'standard') {
  //possible styling option. Mostly used for init purposes.
