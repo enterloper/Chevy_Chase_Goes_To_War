@@ -3,9 +3,10 @@ let express     = require('express');
 let WarRouter = express.Router();
 
 
+
 //War PAGE ROUTE
 WarRouter.get('/', function(req, res) {
-  res.send('Oh, lookie here you gotta nother page!')
+  res.send("<h1>There's no fighting in the War room</h1>");
 });
 
 

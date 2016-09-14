@@ -10,7 +10,6 @@ let apiDeckRouter = require('./routes/apiDeckRouter.js');
 let DrawOneRouter = require('./routes/drawOneRouter.js');
 let WarRouter     = require('./routes/warRouter.js');
 
-
 //middleware
 app.set('case sensitive routing', false);
 app.use(bodyParser.json());
@@ -37,6 +36,5 @@ app.listen(app.get('port'), function() {
 });
 
 module.exports = app;
-
 
 

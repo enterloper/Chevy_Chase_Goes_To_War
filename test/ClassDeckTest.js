@@ -1,67 +1,51 @@
 'use strict';
-let chai   = require('chai');
-let expect = chai.expect;
-let should = chai.should();
-let assert = chai.assert;
-
-let orderedDeck = function() {
-  let suits = [ '♥', '♣', '♠', '♦' ];
-  let values = [ 'A', 2, 3, 4, 5, 6, 7, 8, 9, 10, 'J', 'Q', 'K' ];
-  let deck = [];
-
-  suits.forEach(function(suit) {
-    values.forEach(function(value) {
-      deck.push(value + suit);
-    });
-  });
-
-  return deck;
-};
-
-const shuffleDeck = (deck) => {
-
-  let key, temp;
-  for(let i = 0; i<2; i++){
-    for (let j = 0; j < deck.length; j++) {
-      key = Math.floor(Math.random() * deck.length);
-      temp = deck[j];
-      deck[j] = deck[key];
-      deck[key] = temp;
+let chai        = require('chai');
+let expect      = chai.expect;
+let should      = chai.should();
+let assert      = chai.assert;
+let NewDeck     = require('./../server/cardDeckClass.js');
+/*after running standard.drawOne() 3 times;
+(function (a,b,c) {
+  for(let i = 0, max = standard.deck.length, deck=standard.deck; i<max; i++){
+    if(deck[i]===a||deck[i]===b||deck[i]===c) {
+      return "RU ROOOOO";
     }
-  }
-  return deck;
-};
+  }return 'All Clear!';
+}("9♥","2♣","4♥"));
+*/
+var standard = new NewDeck();
 
 //IMPLIMENT!!!! BOOOOOOOI!
 // .to.deep.equal({ bar: 'baz' });
 // expect({ foo: { bar: { baz: 'quux' } } })
 //   .to.have.deep.property('foo.bar.baz', 'quux');
+//USE BEFOREEACH!before(), after(), beforeEach(), and afterEach()
 
 describe('Completed deck', () => {
   it('should have a 52 cards in total', () => {
-    expect( shuffleDeck(orderedDeck()) ).to.have.length(52);
+    expect( standard.deck ).to.have.length(52);
   });
 });
 
 describe('shuffleDeck', function() {
   it('should exist', function(){
-    should.exist(shuffleDeck);
+    should.exist(standard.shuffleDeck);
   });
 
   it('should be a function', function() {
-    shuffleDeck.should.be.a.Function;
+    standard.shuffleDeck.should.be.a.Function;
   });
 
   it('should return an array', function() {
-    var result = shuffleDeck(orderedDeck());
+    var result = standard.shuffleDeck(standard.deck);
     should.exist(result);
     result.should.be.an.instanceof(Array);
   });
 
   it('should return an array with every card in the deck', function(){
-    var input = orderedDeck();
-    var control = orderedDeck();
-    var result = shuffleDeck(input);
+    var input = standard.orderDeck();
+    var control = standard.orderDeck();
+    var result = standard.shuffleDeck(input);
     // check that every expected card is in the result deck
     for (var i = 0; i < control.length; i++) {
       result.should.contain(control[i]);
@@ -73,30 +57,25 @@ describe('shuffleDeck', function() {
   });
 
   it('should not return the deck in input order', function(){
-    var input = orderedDeck();
-    var control = orderedDeck();
-    var result = shuffleDeck(input);
+    var input = standard.deck;
+    var control = standard.orderDeck();
+    var result = standard.shuffleDeck(input);
     // check that all cards are not present in the same order
     result.should.not.eql(control);
-    // It is theoretically conceivable, but statistically impossible that this could happen randomly.
-    // (P = 1 in 52!)
   });
 
   it('should not return the deck in the same order twice', function(){
-    var input1 = orderedDeck();
-    var input2 = orderedDeck();
-    var result1 = shuffleDeck(input1);
-    var result2 = shuffleDeck(input2);
+    var input1  = standard.orderDeck();
+    var input2  = standard.orderDeck();
+    var result1 = standard.shuffleDeck(input1);
+    var result2 = standard.shuffleDeck(input2);
 
     // check that all cards are not present in the same order
     result1.should.not.eql(result2);
-    // It is theoretically conceivable, but statistically impossible that this could happen randomly.
-    // (P = 1 in 52!)
   });
 
   it('should not have any bias from a uniform distribution', function () {
-    // This one is tricky. We're going to verify that your algorithm returns a deck which "looks random".
-    var deck = orderedDeck();
+    var deck = standard.orderDeck();
     // Keep a table of how often each card appears in each deck position...
     var cardPositionCounts = {};
     for (var i = 0; i < deck.length; i++) {
@@ -105,17 +84,17 @@ describe('shuffleDeck', function() {
         cardPosition[j] = 0;
       }
     }
-    // ...over the course of five hundred shuffles
+    // five hundred shuffles
     var iterations = 52 * 10;
     for (var i = 0; i < iterations; i++) {
-      deck = orderedDeck();
-      var randomDeck = shuffleDeck(deck);
+      deck = standard.orderDeck();
+      var randomDeck = standard.shuffleDeck(deck);
       for (var j = 0; j < randomDeck.length; j++) {
         cardPositionCounts[randomDeck[j]][j] += 1;
       }
     }
     // The result should not betray any obvious statistical bias.
-    deck = orderedDeck();
+    deck = standard.orderDeck();
     // The expected number of occurrences for a particular card in a particular index is
     // iterations/52 = 10
     var expected = 10,
@@ -137,8 +116,8 @@ describe('shuffleDeck', function() {
 
   it('for large N, should not have any bias from a uniform distribution', function () {
     // Perform this test on an array of 1000 integers.
-    // (Your function must shuffle an arbitrary array to pass this test.)
-    // If your algorithm times out here, it is not running in linear time.
+    // Function must shuffle an arbitrary array to pass this test.
+    // Must run in Linear Time
     var orderedArray = function () {
       var output = [];
       for (var i = 0; i < 1000; i++) {
@@ -159,7 +138,7 @@ describe('shuffleDeck', function() {
     var iterations = 1000 * 5;
     for (var i = 0; i < iterations; i++) {
       deck = orderedArray();
-      var randomDeck = shuffleDeck(deck);
+      var randomDeck = standard.shuffleDeck(deck);
       for (var j = 0; j < randomDeck.length; j++) {
         cardPositionCounts[randomDeck[j]][j] += 1;
       }
@@ -178,7 +157,7 @@ describe('shuffleDeck', function() {
       }
     }
     // quick and dirty statistical test:
-    // if your shuffles are uniformly distributed, chi-squared should be roughly 1000^2
+    // chi-squared should be roughly 1000^2
     var target = 1000*1000;
     var margin = 1000*10;
     chi2.should.be.within(target - margin, target + margin);
