@@ -12,11 +12,13 @@
     <script src="https://unpkg.com/remarkable@1.6.2/dist/remarkable.min.js"></script>
   </head>
   <body>
-    <div id="content">Hello, hi, how are you?!</div>
     <script type="text/babel" src="scripts/chevy.js"></script>
     <script type="text/babel">
       ReactDOM.render(
-        <h1>Richard Boothe</h1>,
+        <div id="content">
+          <h1>Richard Boothe</h1>
+          <p>Hello, hi, how are you?!</p>
+        </div>,
         document.body
       );
     </script>
