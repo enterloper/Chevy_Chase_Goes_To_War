@@ -5,6 +5,7 @@ let app           = express();
 let bodyParser    = require('body-parser');
 let morgan        = require('morgan');
 let path          = require('path');
+let deck          = require('./cardDeckOLOO')
 /******** ROUTERS ********/
 let apiDeckRouter = require('./routes/apiDeckRouter.js');
 let DrawOneRouter = require('./routes/drawOneRouter.js');
