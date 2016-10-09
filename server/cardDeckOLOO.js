@@ -54,7 +54,7 @@ var Deck = {
     clone.forEach( x=>{ output.push(x) } );
     return output;
   },
-  orderDeck: function (a) {
+  sortDeck: function (a) {
 
     const sorted = (x) => {
       let suit = x[0][1];
